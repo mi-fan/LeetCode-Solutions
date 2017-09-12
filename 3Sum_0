@@ -1,0 +1,94 @@
+/**
+ * Return an array of arrays of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+
+
+int** threeSum(int* nums, int numsSize, int* returnSize) {
+	int i, j, k;
+	int temp;
+	int **returnArr;
+	int max = numsSize * 6;
+	int mid;
+
+	returnArr = (int**)malloc(sizeof(int*)*max);
+
+	for (i = 0; i < max; i++)
+	{
+		returnArr[i] = (int*)malloc(sizeof(int) * 3);
+	}
+
+	int comp(const void *a, const void *b);
+	int find_equal(int* nums, int i, int k, int temp);
+
+	qsort(nums, numsSize, sizeof(int), comp);
+	i = 0;
+	*returnSize = 0;
+	max = nums[numsSize - 1];
+
+	while (nums[i] <= 0)
+	{
+		j = i + 1;
+		while (j < numsSize - 1)
+		{
+			temp = -(nums[i] + nums[j]);
+			if (temp > max)
+            {
+             	j++;
+                continue;   
+            }
+			if ((k = find_equal(nums, j + 1, numsSize - 1, temp)) != -1)
+			{
+				if ((*returnSize >= 1) && returnArr[(*returnSize) - 1][0] == nums[i] && returnArr[(*returnSize) - 1][1] == nums[j])
+				{
+
+				}
+				else
+				{
+					returnArr[(*returnSize)][0] = nums[i];
+					returnArr[(*returnSize)][1] = nums[j];
+					returnArr[(*returnSize)][2] = nums[k];
+					(*returnSize)++;
+				}
+			}
+			j++;
+		}
+		if (nums[i] == 0)
+			break;
+		do
+		{
+			i++;
+		} while (nums[i] == nums[i - 1] && i < numsSize - 2);
+	}
+
+	return returnArr;
+}
+
+int comp(const void *a, const void *b)
+{
+    return *(int *)a - *(int *)b;
+}
+
+int find_equal(int* nums, int i, int k, int temp) //find temp position between i & j
+{
+	int j;
+	int mid = (i + k) / 2;
+	int ret = mid;
+
+	if (k - i <= 1)
+	{
+		if (nums[k] == temp)
+			return k;
+		else if (nums[i] == temp)
+			return i;
+		else return -1;
+	}
+
+	if (nums[mid] > temp)
+		ret = find_equal(nums, i, mid, temp);
+	else 
+		ret = find_equal(nums, mid, k, temp);
+
+	return ret;
+}
