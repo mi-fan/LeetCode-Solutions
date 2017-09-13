@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+ 
 int romantoInt(char* s)
 {
 	int num = 0;
