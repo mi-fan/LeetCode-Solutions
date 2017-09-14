@@ -5,6 +5,7 @@
  *     struct ListNode *next;
  * };
  */
+//relatively not so elegant
 struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
 	struct ListNode **arr; //an array of list address
     int i = 0;
