@@ -29,15 +29,25 @@ int** fourSum(int* nums, int numsSize, int target, int* returnSize) {
     {
     	if ((start != 0) && (nums[start] == nums[start - 1]))
     		continue;
- 
+	 if (nums[start] + nums[start + 1] + nums[start + 2] + nums[start + 3] > target)
+            break;
+        
     	for (end = numsSize - 1; end > start + 2; end--)
     	{
     		if ((end != numsSize - 1) && nums[end] == nums[end + 1])
     			continue;
-
-			diff = target - (nums[start] + nums[end]);
+ 		
+		if (nums[start] + nums[end] + nums[end - 1] + nums[end - 2] < target)
+                	break;
+		
+		diff = target - (nums[start] + nums[end]);
 	    	for (i = start + 1, j = end - 1; i < j; )
 	    	{
+			if (nums[start] + nums[end] + nums[i] + nums[i + 1] > target)
+               		     break;
+			if (nums[start] + nums[end] + nums[j] + nums[j - 1] < target)
+			    break;
+			
 	    		temp = nums[i] + nums[j];
 	    		if (temp == diff)
 	    		{
