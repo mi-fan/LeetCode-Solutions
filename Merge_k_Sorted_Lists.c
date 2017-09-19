@@ -101,6 +101,7 @@ struct ListNode * arrangeList(struct ListNode *begin, struct ListNode *end)
 	swap(begin, p);
 
 	return p;
+}
 
 void swap(struct ListNode *p, struct ListNode *q)
 {
