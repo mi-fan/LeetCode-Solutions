@@ -19,31 +19,26 @@ int search_rot(int* nums, int begin, int end, int target)
 		if (nums[begin] == target) return begin;
 		return -1;
 	}
-	if (begin + 1 == end)
-	{
-		if (nums[begin] == target) return begin;
-		else if (nums[end] == target) return end;
-		else return -1;
-	}
 	int pos;
 	int mid = (begin + end)/2;
 	if (nums[mid] == target)
 		return mid;
 
-	if (nums[mid] > nums[begin])//the former part is fully ascending
+    if (nums[mid] > nums[begin])//the former part is fully ascending
 	{
-		if (nums[mid] > target && nums[begin] < target)
+		if (nums[mid] >= target && nums[begin] <= target)
 			pos = search_rot(nums, begin, mid, target);
 		else
-			pos = search_rot(nums, mid, end, target);
-	} 
+			pos = search_rot(nums, mid + 1, end, target);
+	}
 	else //the latter part is fully ascending
 	{
-		if (nums[mid] < target && nums[end] > target)
-			pos = search_rot(nums, mid, end, target);
+		if (nums[mid] <= target && nums[end] >= target)
+			pos = search_rot(nums, mid + 1, end, target);
 		else
 			pos = search_rot(nums, begin, mid, target);
 	}
+
 
 	return pos;
 }
